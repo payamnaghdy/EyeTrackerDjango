@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"></script>
     {% load static %}
     <script src="{% static "clmtrackr.js" %}"></script>
     <script src="{% static "main.js" %}"></script>
+    <script src="{% static "circle.js" %}"></script>
+    <script src="{% static "calibration.js" %}"></script>
+    <script src="{% static "movetarget.js" %}"></script>
     <video id="webcam" width="400" height="300" autoplay></video>
     <canvas id="overlay" width="400" height="300"></canvas>
     <style>
@@ -13,9 +17,11 @@
           position: absolute;
           top: 0;
           left: 0;
+          width:10%;
         }
     </style>
     <canvas id="eyes" width="50" height="25"></canvas>
+    
     <style>
       #eyes {
           position: absolute;
@@ -23,5 +29,37 @@
           right: 0;
         }
     </style>
+    <div id="circle"></div>
+    <style>
+      #circle {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        background: red;
+        left: 30px; 
+        top: 70px;
+      }
+    </style>
+    <script>
+      //console.log(getImage())
+     // circlemove();
+    </script>
+    <div id="target"></div>
+    <style>
+        #target {
+            background-color: lightgreen;
+            position: absolute;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px 10px white;
+            border: 4px solid rgba(0,0,0,0.5);
+        }
+    </style>
+
 </body>
 </html>

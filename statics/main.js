@@ -2,11 +2,19 @@ $(document).ready(function() {
   const video = $('#webcam')[0];
 
   function getEyesRectangle(positions) {
-  const minX = positions[23][0] - 5;
-  const maxX = positions[28][0] + 5;
-  const minY = positions[24][1] - 5;
-  const maxY = positions[26][1] + 5;
+  // const minX = positions[23][0] - 5;
+  // const maxX = positions[28][0] + 5;
+  // const minY = positions[24][1] - 5;
+  // const maxY = positions[26][1] + 5;
 
+
+  let minX = positions[23][0] - 5;
+  let maxX = positions[28][0] + 5;
+  let minY = positions[24][1] - 5;
+  let maxY = positions[31][1] + 5;
+  // if (maxY < positions[26][1]){
+  //   maxY = positions[26][1] + 5;
+  // }
   const width = maxX - minX;
   const height = maxY - minY;
 
@@ -16,12 +24,13 @@ $(document).ready(function() {
     video.srcObject = stream;
     const ctrack = new clm.tracker();
     ctrack.init();
-      ctrack.start(video);
+    ctrack.start(video);
     const overlay = $('#overlay')[0];
     const overlayCC = overlay.getContext('2d');
 
 
       console.log('hey');
+      circlemove()
     function trackingLoop() {
       // Check if a face is detected, and if so, track it.
       requestAnimationFrame(trackingLoop);
