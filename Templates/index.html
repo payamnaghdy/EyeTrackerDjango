@@ -7,7 +7,7 @@
     {% load static %}
     <script src="{% static "clmtrackr.js" %}"></script>
     <script src="{% static "main.js" %}"></script>
-    <script src="{% static "circle.js" %}"></script>
+    <!-- <script src="{% static "circle.js" %}"></script> -->
     <script src="{% static "calibration.js" %}"></script>
     <script src="{% static "movetarget.js" %}"></script>
     <video id="webcam" width="400" height="300" autoplay></video>
@@ -17,9 +17,8 @@
           position: absolute;
           top: 0;
           left: 0;
-          width:10%;
-        }
-    </style>
+      }
+  </style>
     <canvas id="eyes" width="50" height="25"></canvas>
     
     <style>
@@ -29,7 +28,7 @@
           right: 0;
         }
     </style>
-    <div id="circle"></div>
+    <img src="https://media.giphy.com/media/xUPGcfbMG6a2k2z57O/giphy.gif" id="circle" onclick=" dssave()"></img>
     <style>
       #circle {
         position: absolute;
@@ -38,14 +37,19 @@
         -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
         border-radius: 25px;
-        background: red;
+        /* background: red; */
         left: 30px; 
         top: 70px;
       }
     </style>
     <script>
-      //console.log(getImage())
-     // circlemove();
+      function dssave(){
+        captureExample(t,l)
+        var l = Math.floor(Math.random() * (window.innerWidth - 50));
+        var t = Math.floor(Math.random() * (window.innerHeight - 50));
+        mymove(t,l);
+        console.log(Math.floor(Math.random() * (window.innerWidth - 50)))
+      }
     </script>
     <div id="target"></div>
     <style>
@@ -60,6 +64,24 @@
             border: 4px solid rgba(0,0,0,0.5);
         }
     </style>
-
+   <button id="calibrate" >calibrate</button>
+   <style>
+    #store-data {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    #pop{
+        position : absolute;
+        top : 300;
+        right : 0;
+    }
+    #calibrate {
+      position : absolute;
+        top : 700;
+        right : 0;
+    }
+    </style>
+    <p id = "pop">hey </p>
 </body>
 </html>

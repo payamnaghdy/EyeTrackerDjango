@@ -8,7 +8,8 @@ function createModel() {
     filters: 20,
     strides: 1,
     activation: 'relu',
-    inputShape: [$('#eyes').height(), $('#eyes').width(), 3],
+    //inputShape: [$('#eyes').height(), $('#eyes').width(), 3],
+    inputShape: [2],
   }));
 
   model.add(tf.layers.maxPooling2d({
@@ -45,11 +46,12 @@ function fitModel() {
     if (currentModel == null) {
       currentModel = createModel();
     }
-  
+    
     currentModel.fit(dataset.train.x, dataset.train.y, {
       batchSize: batchSize,
       epochs: 20,
       shuffle: true,
-      validationData: [dataset.val.x, dataset.val.y],
+      //validationData: [dataset.val.x, dataset.val.y],
+      validationData: [dataset.train.x, dataset.train.y],
     });
   }

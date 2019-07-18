@@ -28,6 +28,60 @@ function mymove(t,l){
     circle.css('left',l + 'px');
     circle.css('top',t + 'px'); 
 }
+
+function captureExample(t,l) {
+  // Take the latest image from the eyes canvas and add it to our dataset.
+  tf.tidy(function() {
+    const image = getImage();
+    if(image == null){
+      return
+    }
+  //   const circPos = tf.tensor1d([l, t]).expandDims(0);
+    const circPos = tf.tensor1d([(l / $(window).width()) * 2 - 1, (t / $(window).width())    * 2 - 1]).expandDims(0);
+
+    // Choose whether to add it to training (80%) or validation (20%) set:
+    const subset = dataset[Math.random() > 0.2 ? 'train' : 'val'];
+
+    if (subset.x == null) {
+      // Create new tensors
+      subset.x = tf.keep(image);
+      subset.y = tf.keep(circPos);
+    } else {
+      // Concatenate it to existing tensors
+      const oldX = subset.x;
+      const oldY = subset.y;
+      
+      subset.x = tf.keep(oldX.concat(image, 0));
+      subset.y = tf.keep(oldY.concat(circPos, 0));
+    }
+
+    // Increase counter
+    subset.n += 1;
+    if(subset.n > 10)
+    {
+      console.log(dataset)
+      
+      fitModel()
+      setInterval(moveTarget, 100);
+    }
+  });n
+    }
+  //   const circPos = tf.tensor1d([l, t]).expandDims(0);
+    const circPos = tf.tensor1d([(l / $(window).width()) * 2 - 1, (t / $(window).width())    * 2 - 1]).expandDims(0);
+
+    // Choose whether to add it to training (80%) or validation (20%) set:
+    const subset = dataset[Math.random() > 0.2 ? 'train' : 'val'];
+
+    if (subset.x == null) {
+      // Create new tensors
+      subset.x = tf.keep(image);
+      subset.y = tf.keep(circPos);
+    } else {
+      // Concatenate it to e
+}
+
+
+
 function circlemove(){
     var l = 1;
     var t = 0;
@@ -35,7 +89,7 @@ function circlemove(){
     var counter = 0;
     var w = window.innerWidth - 50;
     var h = window.innerHeight - 50;
-    var int = setInterval(moving,500);
+    //var int = setInterval(moving,500);
     function moving(){
         if (counter < 5){
           t = 0;
@@ -100,32 +154,35 @@ function circlemove(){
         //     clearInterval(int);
         // }
     }
-    function captureExample() {
-        // Take the latest image from the eyes canvas and add it to our dataset.
-        tf.tidy(function() {
-          const image = getImage();
-        //   const circPos = tf.tensor1d([l, t]).expandDims(0);
-          const circPos = tf.tensor1d([(l / $(window).width()) * 2 - 1, (t / $(window).width())    * 2 - 1]).expandDims(0);
+    // function captureExample(t,l) {
+    //     // Take the latest image from the eyes canvas and add it to our dataset.
+    //     tf.tidy(function() {
+    //       const image = getImage();
+    //     //   const circPos = tf.tensor1d([l, t]).expandDims(0);
+    //       const circPos = tf.tensor1d([(l / $(window).width()) * 2 - 1, (t / $(window).width())    * 2 - 1]).expandDims(0);
       
-          // Choose whether to add it to training (80%) or validation (20%) set:
-          const subset = dataset[Math.random() > 0.2 ? 'train' : 'val'];
+    //       // Choose whether to add it to training (80%) or validation (20%) set:
+    //       const subset = dataset[Math.random() > 0.2 ? 'train' : 'val'];
       
-          if (subset.x == null) {
-            // Create new tensors
-            subset.x = tf.keep(image);
-            subset.y = tf.keep(circPos);
-          } else {
-            // Concatenate it to existing tensors
-            const oldX = subset.x;
-            const oldY = subset.y;
+    //       if (subset.x == null) {
+    //         // Create new tensors
+    //         subset.x = tf.keep(image);
+    //         subset.y = tf.keep(circPos);
+    //       } else {
+    //         // Concatenate it to existing tensors
+    //         const oldX = subset.x;
+    //         const oldY = subset.y;
       
-            subset.x = tf.keep(oldX.concat(image, 0));
-            subset.y = tf.keep(oldY.concat(circPos, 0));
-          }
+    //         subset.x = tf.keep(oldX.concat(image, 0));
+    //         subset.y = tf.keep(oldY.concat(circPos, 0));
+    //       }
       
-          // Increase counter
-          subset.n += 1;
-        });
-      }
+    //       // Increase counter
+    //       subset.n += 1;
+    //       if(subset.n > 25){
+    //         fitModel()
+    //       }
+    //     });
+    //   }
     
   }
